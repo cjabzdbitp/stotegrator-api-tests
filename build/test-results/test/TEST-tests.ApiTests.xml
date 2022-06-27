@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Tests for API part" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-06-27T22:11:42" hostname="WIN-S53882AUKVM" time="3.476">
+  <properties/>
+  <testcase name="Get guest token" classname="tests.ApiTests" time="3.476"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
