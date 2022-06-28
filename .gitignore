@@ -1,8 +1,21 @@
-.gradle/
-.allure/
-.idea/
+.gradle
 build/
-out/
-*.ipr
+!gradle/wrapper/gradle-wrapper.jar
+.2.git/
+gradle.properties
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
-git
+*.ipr
+out/
