@@ -21,7 +21,6 @@ class ApiTests {
     @DisplayName("Return guest token")
     void test1() throws JsonProcessingException {
         Response response = apiService.generateToken(authPayload.createAuthGuestPayload());
-        response.then().assertThat().body("access_token", not(nullValue()));
         assertAll(
                 () -> assertThat(response.getStatusCode(), is(200)),
                 () -> assertThat(response.then().extract().path("access_token"), is(not(emptyString()))));
