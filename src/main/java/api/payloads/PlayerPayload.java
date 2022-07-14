@@ -10,17 +10,24 @@ import lombok.experimental.Accessors;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Accessors(fluent = true)
-public class AuthPayload {
-
-    @JsonProperty("grant_type")
-    private String grant_type;
-
-    @JsonProperty("scope")
-    private String scope;
+public class PlayerPayload {
 
     @JsonProperty("username")
     private String username;
 
-    @JsonProperty("password")
-    private String password;
+    @JsonProperty("password_change")
+    private String password_change;
+
+    @JsonProperty("password_repeat")
+    private String password_repeat;
+
+    @JsonProperty("email")
+    private String email;
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("surname")
+    private String surname;
 }
+
