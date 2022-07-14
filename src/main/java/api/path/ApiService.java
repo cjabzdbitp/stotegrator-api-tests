@@ -4,7 +4,8 @@ package api.path;
 import api.config.ProjectConfig;
 import api.config.UserConfig;
 import api.payloads.AuthPayload;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import api.payloads.PlayerPayload;
+import api.testedData.TestedDataForAuthorization;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -15,13 +16,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 public class ApiService {
-    static ProjectConfig config = ConfigFactory.create(ProjectConfig.class);
-    static UserConfig configUsers = ConfigFactory.create(UserConfig.class);
-    static String baseURI = config.baseURI();
-    static String username = configUsers.username();
 
-    public Response generateToken(String authBodyRequest) {
+    ProjectConfig config = ConfigFactory.create(ProjectConfig.class);
+    UserConfig configUsers = ConfigFactory.create(UserConfig.class);
+    String baseURI = config.baseURI();
+    String username = configUsers.username();
 
+    public Response generateToken(AuthPayload authBodyRequest) {
         RequestSpecification request = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Basic " + Base64.getEncoder()
@@ -30,13 +31,12 @@ public class ApiService {
         return request.post(baseURI + "/v2/oauth2/token");
     }
 
-    public String getGuestToken() throws JsonProcessingException {
-        AuthPayload authPayload = new AuthPayload();
-        return generateToken(authPayload.createAuthGuestPayload()).jsonPath().getString("access_token");
+    public String getGuestToken() {
+        TestedDataForAuthorization testedDataForAuthorization = new TestedDataForAuthorization();
+        return generateToken(testedDataForAuthorization.testDataForAuthAsGuest()).jsonPath().getString("access_token");
     }
 
-    public Response registerPlayer(String playerPayload) throws JsonProcessingException {
-
+    public Response registerPlayer(PlayerPayload playerPayload) {
         RequestSpecification request = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + getGuestToken())
@@ -45,7 +45,6 @@ public class ApiService {
     }
 
     public Response getPlayerInfo(int playerId, String token) {
-
         RequestSpecification request = RestAssured.given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "Bearer " + token);
